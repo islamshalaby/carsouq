@@ -12,6 +12,12 @@ class CategoryController extends AdminController{
     public function AddGet(){
         return view('admin.categories.create');
     }
+
+    public function change_is_show(Request $request){
+        $data['is_show'] = $request->status ;
+        Category::where('id', $request->id)->update($data);
+        return 1;
+    }
     // type : post -> add new category
     public function AddPost(Request $request){
         $image_name = $request->file('image')->getRealPath();

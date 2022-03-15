@@ -21,7 +21,7 @@ class SettingController extends Controller
     }
 
 	public function showbuybutton(Request $request){
-	        $setting = Setting::select('show_buy')->find(1);
+	    $setting = Setting::select('show_buy')->find(1);
         $response = APIHelpers::createApiResponse(false , 200 ,  '', '' , $setting, $request->lang );
         return response()->json($response , 200);
 	}

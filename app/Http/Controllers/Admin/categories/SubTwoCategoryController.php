@@ -13,9 +13,16 @@ class SubTwoCategoryController extends AdminController
     {
 
     }
+    
     public function create($id)
     {
         return view('admin.categories.sub_catyegory.sub_two_category.create',compact('id'));
+    }
+
+    public function change_is_show(Request $request){
+        $data['is_show'] = $request->status;
+        SubTwoCategory::where('id', $request->id)->update($data);
+        return 1;
     }
     public function store(Request $request)
     {

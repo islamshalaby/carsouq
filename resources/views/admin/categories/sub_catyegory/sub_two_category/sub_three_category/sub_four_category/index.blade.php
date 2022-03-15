@@ -44,6 +44,7 @@
                             <th class="text-center">{{ __('messages.image') }}</th>
                             <th class="text-center">{{ __('messages.name') }}</th>
                             <th class="text-center">{{ __('messages.sub_category_fiveth') }}</th>
+                            <th class="text-center">{{ __('messages.hidden_show') }}</th>
                             @if(Auth::user()->update_data)
                                 <th class="text-center">{{ __('messages.edit') }}</th>@endif
                             @if(Auth::user()->delete_data)
@@ -78,7 +79,13 @@
                                     </a>
                                     @endif
                                 </td>
-
+                                <td class="text-center">
+                                    <label class="switch s-icons s-outline  s-outline-primary  mb-4 mr-2">
+                                        <input type="checkbox" onchange="update_active(this)"
+                                               value="{{ $row->id }}" @if($row->is_show == 1) checked  @endif >
+                                        <span class="slider round"></span>
+                                    </label>
+                                </td>
                                 @if(Auth::user()->update_data)
                                     <td class="text-center blue-color"><a
                                             href="{{ route( 'sub_four_cat.edit', $row->id ) }}"><i
@@ -106,7 +113,7 @@
         </div>
     </div>
 @endsection
-@section('scripts')
+@push('scripts')
     <script type="text/javascript">
         function update_status(el) {
             if (el.checked) {
@@ -126,7 +133,26 @@
                 }
             });
         }
+
+        function update_active(el) {
+            if (el.checked) {
+                var status = 1;
+            } else {
+                var status = 0;
+            }
+            $.post('{{ route('sub_four_cat.change_is_show') }}', {
+                _token: '{{ csrf_token() }}',
+                id: el.value,
+                status: status
+            }, function (data) {
+                if (data == 1) {
+                    toastr.success("{{trans('messages.statuschanged')}}");
+                } else {
+                    toastr.error("{{trans('messages.statuschanged')}}");
+                }
+            });
+        }
     </script>
-@endsection
+@endpush
 
 

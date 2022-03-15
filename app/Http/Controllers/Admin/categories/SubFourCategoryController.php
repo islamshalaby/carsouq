@@ -17,6 +17,11 @@ class SubFourCategoryController extends AdminController
     {
         return view('admin.categories.sub_catyegory.sub_two_category.sub_three_category.sub_four_category.create',compact('id'));
     }
+    public function change_is_show(Request $request){
+        $data['is_show'] = $request->status ;
+        SubFourCategory::where('id', $request->id)->update($data);
+        return 1;
+    }
     public function store(Request $request)
     {
         $data = $this->validate(\request(),

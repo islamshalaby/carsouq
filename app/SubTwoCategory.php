@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class SubTwoCategory extends Model
 {
     //
-    protected $fillable = ['title_en', 'title_ar', 'image', 'deleted', 'sub_category_id','sort'];
+    protected $fillable = ['title_en', 'title_ar', 'image', 'deleted', 'sub_category_id','sort', 'is_show'];
 
 
     public function category() {

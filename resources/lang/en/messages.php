@@ -1,5 +1,7 @@
 <?php
     return [
+        'statuschanged' => 'status changes successfully',
+        'hidden_show' => "hidden / show",
         'walllet_balance' => "walllet balance",
         'contact_info' => "work times",
         'feature_hoursfeature_hours' => "Number of hours of the property",

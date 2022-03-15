@@ -17,6 +17,11 @@ class SubCategoryController extends AdminController
     {
         return view('admin.categories.sub_catyegory.create',compact('id'));
     }
+    public function change_is_show(Request $request){
+        $data['is_show'] = $request->status ;
+        SubCategory::where('id', $request->id)->update($data);
+        return 1;
+    }
     public function store(Request $request)
     {
         $data = $this->validate(\request(),

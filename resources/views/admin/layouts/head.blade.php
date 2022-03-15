@@ -92,7 +92,7 @@
         <link href="/admin/plugins/toast-master/css/jquery.toast.css" rel="stylesheet">
         <link href="/admin/plugins/toastr/toastr.min.css" rel="stylesheet" type="text/css">
         <link href="/css/new_styles.css" rel="stylesheet" type="text/css">
-
+        <link rel="stylesheet" type="text/css" href="/admin/assets/css/forms/switches.css">
 
 
 

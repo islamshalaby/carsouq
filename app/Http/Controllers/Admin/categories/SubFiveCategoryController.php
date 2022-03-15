@@ -12,6 +12,11 @@ class SubFiveCategoryController extends AdminController
     {
 
     }
+    public function change_is_show(Request $request){
+        $data['is_show'] = $request->status ;
+        SubFiveCategory::where('id', $request->id)->update($data);
+        return 1;
+    }
     public function create($id)
     {
         return view('admin.categories.sub_catyegory.sub_two_category.sub_three_category.sub_four_category.sub_five_category.create',compact('id'));

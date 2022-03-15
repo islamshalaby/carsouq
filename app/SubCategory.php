@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SubCategory extends Model
 {
-    protected $fillable = ['title_en', 'title_ar', 'image', 'deleted', 'brand_id', 'category_id','sort'];
+    protected $fillable = ['title_en', 'title_ar', 'image', 'deleted', 'brand_id', 'category_id','sort', 'is_show'];
 
     public function brand() {
         return $this->belongsTo('App\Brand', 'brand_id');
