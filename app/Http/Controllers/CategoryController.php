@@ -85,7 +85,7 @@ class CategoryController extends Controller
                 $qq->has('Products_custom', '>', 0);
             });
         })->where('category_id', $request->category_id)->select('id', 'title_' . $lang . ' as title')->where('deleted', 0)->orderBy('sort', 'asc')->get();
-        $data['category'] = Category::select('id', 'title_en as title')->find($request->category_id);
+        $data['category'] = Category::select('id', "title_$lang as title")->find($request->category_id);
 
         for ($i = 0; $i < count($data['sub_category_array']); $i++) {
             $data['sub_category_array'][$i]['selected'] = false;
