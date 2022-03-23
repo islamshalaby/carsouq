@@ -524,11 +524,19 @@ class ProductController extends Controller
     public function save_second_step(Request $request)
     {
         $input = $request->all();
+        $messages = [
+            "images.reuired" => "Images are required"
+        ];
+        if ($request->lang == 'ar') {
+            $messages = [
+                "images.reuired" => "اختر صورة واحدة على الأقل"
+            ];
+        }
         $validator = Validator::make($input, [
             'ad_id' => 'required|exists:products,id',
             'main_image' => 'required',
             'images' => 'required',
-        ]);
+        ], $messages);
         if ($validator->fails()) {
             $response = APIHelpers::createApiResponse(true, 406, $validator->messages()->first(), $validator->messages()->first(), $validator->messages()->first(), $request->lang);
             return response()->json($response, 406);
@@ -1446,7 +1454,7 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'description' => '',
             'main_image' => '',
-            'images' => ''
+            // 'images' => ''
         ]);
         if ($validator->fails()) {
             $response = APIHelpers::createApiResponse(true, 406, $validator->messages()->first(), $validator->messages()->first(), null, $request->lang);
