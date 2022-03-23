@@ -1554,8 +1554,8 @@ class ProductController extends Controller
                 $main_image_data['main_image'] = $image_new_name;
                 Product::find($request->ad_id)->update($main_image_data);
             }
+            ProductImage::where('product_id',$request->ad_id)->delete();
             if ($request->images != null) {
-                ProductImage::where('product_id',$request->ad_id)->delete();
                 foreach ($request->images as $image) {
                     Cloudder::upload("data:image/jpeg;base64," . $image, null);
                     $imagereturned = Cloudder::getResult();
