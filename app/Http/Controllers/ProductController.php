@@ -190,7 +190,6 @@ class ProductController extends Controller
 
     public function getdetails(Request $request)
     {
-
         $user = auth()->user();
         $lang = $request->lang;
         Session::put('lang', $lang);
@@ -236,7 +235,9 @@ class ProductController extends Controller
         $data->likes = Favorite::where('product_id', $data->id)->count();
         $user_product = User::find($data->user_id);
         $images = ProductImage::where('product_id', $data->id)->pluck('image')->toArray();
-        $images[count($images)] = $data->main_image;
+        if (count($images) > 0) {
+			$images[count($images)] = $data->main_image;
+		}
         $data->images = $images;
         $related = Product::where('category_id', $data->category_id)
             ->where('id', '!=', $data->id)
@@ -1441,7 +1442,7 @@ class ProductController extends Controller
             'sub_category_four_id' => '',
             'sub_category_five_id' => '',
             'title' => 'required',
-            'options' => 'required',
+            'options' => '',
             'price' => 'required|numeric',
             'description' => '',
             'main_image' => '',
