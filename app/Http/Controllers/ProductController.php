@@ -1530,7 +1530,7 @@ class ProductController extends Controller
         $input = $request->all();
         $validator = Validator::make($input, [
             'ad_id' => 'required|exists:products,id',
-            'images' => 'required',
+            // 'images' => '',
             'main_image' => '',
         ]);
         if ($validator->fails()) {
