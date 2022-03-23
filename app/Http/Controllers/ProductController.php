@@ -1444,7 +1444,7 @@ class ProductController extends Controller
         $input = $request->all();
         $validator = Validator::make($input, [
             'category_id' => 'required',
-            'sub_category_id' => 'required',
+            'sub_category_id' => '',
             'sub_category_two_id' => '',
             'sub_category_three_id' => '',
             'sub_category_four_id' => '',
