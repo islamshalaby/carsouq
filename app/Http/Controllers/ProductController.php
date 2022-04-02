@@ -535,7 +535,7 @@ class ProductController extends Controller
         $validator = Validator::make($input, [
             'ad_id' => 'required|exists:products,id',
             'main_image' => 'required',
-            'images' => 'required',
+            // 'images' => 'required',
         ], $messages);
         if ($validator->fails()) {
             $response = APIHelpers::createApiResponse(true, 406, $validator->messages()->first(), $validator->messages()->first(), $validator->messages()->first(), $request->lang);
@@ -558,17 +558,20 @@ class ProductController extends Controller
                 $product->main_image = $image_new_name;
                 $product->save();
 
-                foreach ($request->images as $image) {
-                    Cloudder::upload("data:image/jpeg;base64," . $image, null);
-                    $imagereturned = Cloudder::getResult();
-                    $image_id = $imagereturned['public_id'];
-                    $image_format = $imagereturned['format'];
-                    $image_name = $image_id . '.' . $image_format;
-
-                    $data['product_id'] = $request->ad_id;
-                    $data['image'] = $image_name;
-                    ProductImage::create($data);
+                if (count($request->images) > 0) {
+                    foreach ($request->images as $image) {
+                        Cloudder::upload("data:image/jpeg;base64," . $image, null);
+                        $imagereturned = Cloudder::getResult();
+                        $image_id = $imagereturned['public_id'];
+                        $image_format = $imagereturned['format'];
+                        $image_name = $image_id . '.' . $image_format;
+    
+                        $data['product_id'] = $request->ad_id;
+                        $data['image'] = $image_name;
+                        ProductImage::create($data);
+                    }
                 }
+                
                 $response = APIHelpers::createApiResponse(false, 200, 'image saved successfully', 'تم حفظ الصور بنجاح', null, $request->lang);
                 return response()->json($response, 200);
             } else {
